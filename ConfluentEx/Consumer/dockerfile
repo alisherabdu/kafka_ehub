@@ -1,0 +1,21 @@
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+WORKDIR /src
+COPY Consumer.csproj .
+RUN dotnet restore "Consumer.csproj"
+COPY . .
+RUN dotnet publish "Consumer.csproj" -c Release -o /publish
+COPY getting-started.properties /publish/
+
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 as final
+WORKDIR /app
+COPY --from=build /publish .
+
+ENTRYPOINT [ "dotnet", "Consumer.dll", "getting-started.properties"]
+
+
+#docker run -it consumer:1.2
+#docker login
+
+#docker build -t consumer:1.2 .
+#docker tag $(docker images --quiet consumer) /consumer:1.2
+#docker push /consumer:1.2

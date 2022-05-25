@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: consumer
+  namespace: default
+spec:
+  containers:
+  - image: /consumer:1.2
+    imagePullPolicy: "Always"
+    name: consumer
+  restartPolicy: Always

@@ -1,0 +1,23 @@
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+WORKDIR /src
+COPY ApacheKafkaConsumerDemo.csproj .
+RUN dotnet restore "ApacheKafkaConsumerDemo.csproj"
+COPY . .
+RUN dotnet publish "ApacheKafkaConsumerDemo.csproj" -c Release -o /publish
+
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 as final
+WORKDIR /app
+COPY --from=build /publish .
+
+ENTRYPOINT [ "dotnet", "ApacheKafkaConsumerDemo.dll" ]
+
+
+#docker images | grep dapper
+#docker run --rm -it -p 8000:80 --env-file .env democonsumer:1.0
+#http://localhost:8000/settings
+#docker login
+
+#docker build -t democonsumer:1.0 .
+#docker images
+#docker tag 7e231c3a1b25 /dapper:1.14
+#docker push /dapper:1.14

@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consumer-app
+  labels:
+    app: consumer-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: consumer-app
+  template:
+    metadata:
+      labels:
+        app: consumer-app
+    spec:
+      containers:
+      - name: consumer-app
+        image: /consumer:1.2
+        imagePullPolicy: "Always"
+

@@ -1,0 +1,13 @@
+
+dotnet run --project Producer.csproj $(pwd)/getting-started.properties
+dotnet run --project Consumer.csproj $(pwd)/getting-started.properties 
+
+dotnet run --project Producer.csproj $(pwd)/ehub.properties
+dotnet run --project Consumer.csproj $(pwd)/ehub.properties
+
+
+dotnet Producer.dll getting-started.properties
+
+kubectl exec -it consumer-app-c8955585f-6jmdn -- sh
+kubectl exec -it producer -- sh
+
