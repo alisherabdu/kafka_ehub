@@ -11,3 +11,5 @@ dotnet Producer.dll getting-started.properties
 kubectl exec -it consumer-app-c8955585f-6jmdn -- sh
 kubectl exec -it producer -- sh
 
+
+dotnet add package Microsoft.Azure.Data.SchemaRegistry.ApacheAvro
